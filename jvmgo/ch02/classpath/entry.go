@@ -29,7 +29,11 @@ func newEntry(path string) Entry {
 	}
 	// the zip file
 	if isCompressPackage(path) {
-		return newZipEntry(path)
+		entry, err := newZipEntry(path)
+		if err != nil {
+			return nil
+		}
+		return entry
 	}
 	entry, err := newDirEntry(path)
 	if err != nil {
